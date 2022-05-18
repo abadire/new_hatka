@@ -9,6 +9,12 @@ services:
            - "3000:3000"
           environment:
            - PORT=3000
+          depends_on: 
+           - api_db
+        
+        api_db:
+          image: mariadb:latest
+
 
 
 
