@@ -2,18 +2,18 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-const port = process.env.PORT;
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-      host: 'localhost',
-      port: port,
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'api_db',
+      port: 3306,
       username: 'root',
       password: 'root',
       database: 'test',
       entities: [],
-      synchronize: true,
+      synchronize: false,
     }),
   ],
   controllers: [AppController],
