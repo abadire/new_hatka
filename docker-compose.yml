@@ -1,35 +1,36 @@
 version: "3"
 
 services:
-        api:
-          build: ./api
-          command: npm run start
-          restart: unless-stopped
-          ports:
-           - "3000:3000"
-          environment:
-           - PORT=3000
-          depends_on:
-           - api_db
-          networks:
-           - hatka
+  api:
+    build: ./api
+    command: npm run start:dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - api_db
+    networks:
+      - hatka
+    volumes:
+      - ./api/src:/usr/src/app/src
 
-           
-        api_db:
-          image: mariadb:latest
-          environment:
-            - TZ=Europe/Prague
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=test
-          restart: always
-          volumes:
-            - ./etc/db:/db # shared DB folder
-            - ./data/mysql:/var/lib/mysql # database data
-            - ./etc/mysql.ini:/etc/mysql/conf.d/my.ini # config file
-            - ./etc/db/init.sh:/docker-entrypoint-initdb.d/init.sh # init
-          ports:
-            - "3306:3306"
-          networks:
-            - hatka
+  api_db:
+    image: mariadb:latest
+    environment:
+      - TZ=Europe/Prague
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+    restart: always
+    volumes:
+      - ./etc/db:/db # shared DB folder
+      - ./data/mysql:/var/lib/mysql # database data
+      - ./etc/mysql.ini:/etc/mysql/conf.d/my.ini # config file
+      - ./etc/db/init.sh:/docker-entrypoint-initdb.d/init.sh # init
+    ports:
+      - "3306:3306"
+    networks:
+      - hatka
 networks:
-  hatka:    
+  hatka:
