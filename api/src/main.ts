@@ -5,7 +5,7 @@ async function bootstrap() {
   const port = process.env.PORT;
   const app = await NestFactory.create(AppModule);
   await app.listen(port, () => {
-  console.log(`Started api service on port: ${port}`)
+    console.log(`Started api service on port: ${port}`);
   });
 }
 bootstrap();

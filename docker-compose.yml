@@ -1,8 +1,19 @@
 version: "3"
 
 services:
+  frontend:
+    build: ./frontend
+    container_name: frontend_hatka
+    command: npm run start
+    ports: 
+      - "4200:4200"
+    restart: unless-stopped
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+
   api:
     build: ./api
+    container_name: backend_hatka
     command: npm run start:dev
     restart: unless-stopped
     ports:
@@ -18,6 +29,7 @@ services:
 
   api_db:
     image: mariadb:latest
+    container_name: database_hatka
     environment:
       - TZ=Europe/Prague
       - MYSQL_ROOT_PASSWORD=root
@@ -32,5 +44,8 @@ services:
       - "3306:3306"
     networks:
       - hatka
+  
+
+
 networks:
   hatka:
