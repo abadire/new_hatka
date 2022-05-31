@@ -25,7 +25,10 @@ export class UserService {
     firstName: string;
     lastName: string;
   }): Promise<UserEntity> {
-    const newUser = this.usersRepository.create({ firstName, lastName });
+    const newUser = this.usersRepository.create({
+      firstNameName: firstName,
+      lastName,
+    });
     return this.usersRepository.save(newUser);
   }
 
